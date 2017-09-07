@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+group = 'net.moznion.sample'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'java'
+    apply plugin: "checkstyle"
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    group = rootProject.group
+    version = rootProject.version
+
+    checkstyle {
+        toolVersion = '8.2'
+        configFile = rootProject.file('code_quality/checkstyle/checkstyle.xml')
+        configProperties = [
+                'checkstyle.cache.file': "${buildDir}/checkstyle.cache",
+        ]
+        ignoreFailures = true
+        showViolations = true
+    }
+}
+
